@@ -62,3 +62,4 @@ for year in range(2018, 2025):
         extract_measurements(site, start, end)
 
 #extract_measurements("WM0", "2019-01-01", "2020-01-01")
+
