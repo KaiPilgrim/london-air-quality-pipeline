@@ -45,11 +45,6 @@ def extract_measurements(site_code, start, end):
     completeness = valid / expected_hours * 100
     print(f"{site_code} ({start}): {completeness:.2f}% complete")
 
-
-
-
-
-
 #for i in endpoint:
 #    extract(i)
 
