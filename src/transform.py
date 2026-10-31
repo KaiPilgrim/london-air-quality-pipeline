@@ -60,12 +60,12 @@ missing_coordinates = [
     site for site in clean_sites
     if site["latitude"] is None or site["longitude"] is None
 ]
-
+"""
 print(f"Total sites: {len(clean_sites)}")
 print(f"Sites with missing coordinates: {len(missing_coordinates)}")
 print(missing_coordinates)
 
-
+"""
 # =========================
 # Pollutant Transformation
 # =========================
@@ -75,7 +75,7 @@ with open("data/raw/pollutants.json", "r") as f:
 
 pollutants = pollutant_data["AirQualitySpecies"]["Species"]
 
-print(f"Total pollutants: {len(pollutants)}")
+#print(f"Total pollutants: {len(pollutants)}")
 
 
 clean_pollutants = []
@@ -89,7 +89,7 @@ for chemical in pollutants:
         "info_url": chemical["@Link"]
     })
 
-print(f"Pollutants transformed: {len(clean_pollutants)}")
+#print(f"Pollutants transformed: {len(clean_pollutants)}")
 
 # =========================
 # Site_Pollutant Transformation
@@ -127,7 +127,7 @@ for entry in clean_site_pollutants:
     entry_tuple = tuple(sorted(entry.items()))
 
     if entry_tuple in seen:
-        print(f"Found duplicate: {entry}")
+        #print(f"Found duplicate: {entry}")
         dupes += 1
         continue
         
@@ -138,17 +138,17 @@ for entry in clean_site_pollutants:
     finished = entry["monitoring_finished"]
 
     if started and finished and started > finished:
-        print(f"Invalid date range - Site: {entry['site_code']}, Pollutant: {entry['pollutant_code']}, Started: {started}, Finished: {finished}")
+        #print(f"Invalid date range - Site: {entry['site_code']}, Pollutant: {entry['pollutant_code']}, Started: {started}, Finished: {finished}")
         invalid_dates += 1
         invalid_site_pollutants.append(entry)
     else:
         valid_site_pollutants.append(entry)
-
+"""
 print(f"\n\nTotal records: {t_records}")
 print(f"Unique records: {u_records} (Valid: {len(valid_site_pollutants)}, Invalid: {len(invalid_site_pollutants)})")
 print(f"Exact duplicates excluded: {dupes}\n")
 
-
+"""
 # =========================
 # Full measurements
 # =========================
@@ -190,19 +190,19 @@ for row in full_measurements:
         total_missing += 1
 
 unique_stations = {row["site_code"] for row in full_measurements}
-
+"""
 print(f"NO2 files found: {len(no2_files)}")
 print(f"Total hourly records: {len(full_measurements)}\nMissing Measurements: {total_missing}\nUnique stations: {len(unique_stations)}")
 
+"""
 
-measure_dupes = set()
+seen_measurement_keys = set()
 duplicate_keys_count = 0
 for row in full_measurements:
     measurement_key = (row["site_code"], row["pollutant_code"], row["measured_at_gmt"])
-    if measurement_key in measure_dupes:
+    if measurement_key in seen_measurement_keys:
             duplicate_keys_count += 1
     else:
-        measure_dupes.add(measurement_key)
+        seen_measurement_keys.add(measurement_key)
 
-print(f"Duplicate measurement keys: {duplicate_keys_count}")
-
+#print(f"Duplicate measurement keys: {duplicate_keys_count}")
