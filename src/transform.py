@@ -1,16 +1,9 @@
-import json
+import json, os
 from datetime import datetime
 
-
 # =========================
-# Site Transformation
+# Format functions
 # =========================
-
-# opens the 'sites.json' and returns site data as a dict stored in site data
-with open("data/raw/sites.json", "r") as f:
-    site_data = json.load(f)
-
-sites = site_data["Sites"]["Site"] # data is inside nested brackets
 
 # to_float() checks to see if value is equal to none or empty string. 
 # if so return none. Function then returns the value as float type.
@@ -27,6 +20,23 @@ def to_date(value):
         return None
 
     return datetime.fromisoformat(value).date()
+
+def to_datetime(value):
+    if not value:
+        return None
+
+    return datetime.fromisoformat(value)
+
+# =========================
+# Site Transformation
+# =========================
+
+# opens the 'sites.json' and returns site data as a dict stored in site data
+with open("data/raw/sites.json", "r") as f:
+    site_data = json.load(f)
+
+sites = site_data["Sites"]["Site"] # data is inside nested brackets
+
 
 clean_sites = []
 
@@ -136,4 +146,63 @@ for entry in clean_site_pollutants:
 
 print(f"\n\nTotal records: {t_records}")
 print(f"Unique records: {u_records} (Valid: {len(valid_site_pollutants)}, Invalid: {len(invalid_site_pollutants)})")
-print(f"Exact duplicates excluded: {dupes}")
+print(f"Exact duplicates excluded: {dupes}\n")
+
+
+# =========================
+# Full measurements
+# =========================
+
+def get_year(file):
+    with open(f"data/raw/{file}", "r") as f:
+        year = json.load(f)
+
+    data = year["RawAQData"]
+    clean_measurements = []
+
+    for hour in data["Data"]:
+        clean_measurements.append({
+            "site_code": data["@SiteCode"],
+            "pollutant_code": data["@SpeciesCode"],
+            "measured_at_gmt": to_datetime(hour.get("@MeasurementDateGMT")),
+            "value": to_float(hour.get("@Value")),
+            "source_file": file
+            })
+    return clean_measurements
+
+folder_path = "data/raw"
+
+no2_files = sorted([
+    f
+    for f in os.listdir(folder_path)
+    if f.startswith("no2_") and f.endswith(".json")
+])
+
+
+full_measurements = []
+total_missing = 0
+
+for entry in no2_files:
+    full_measurements.extend(get_year(entry))
+
+for row in full_measurements:
+    if row["value"] is None:
+        total_missing += 1
+
+unique_stations = {row["site_code"] for row in full_measurements}
+
+print(f"NO2 files found: {len(no2_files)}")
+print(f"Total hourly records: {len(full_measurements)}\nMissing Measurements: {total_missing}\nUnique stations: {len(unique_stations)}")
+
+
+measure_dupes = set()
+duplicate_keys_count = 0
+for row in full_measurements:
+    measurement_key = (row["site_code"], row["pollutant_code"], row["measured_at_gmt"])
+    if measurement_key in measure_dupes:
+            duplicate_keys_count += 1
+    else:
+        measure_dupes.add(measurement_key)
+
+print(f"Duplicate measurement keys: {duplicate_keys_count}")
+
