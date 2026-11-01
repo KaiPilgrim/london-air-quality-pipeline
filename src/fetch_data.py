@@ -50,7 +50,7 @@ def extract_measurements(site_code, start, end):
 
 #extract_measurements("WM5", "2018-01-01", "2019-01-01") #test
 
-for year in range(2018, 2025):
+for year in [2016, 2017, 2025]:
     start = f"{year}-01-01"
     end = f"{year + 1}-01-01"
     for site in site_codes:
