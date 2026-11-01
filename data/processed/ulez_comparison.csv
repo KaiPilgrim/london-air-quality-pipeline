@@ -1,0 +1,9 @@
+site_code,site_name,site_type,paired_months,before_no2,after_no2,percentage_change
+HG4,Haringey  - Priory Park South,Urban Background,9,16.36,12.99,-20.58
+BT4,Brent - Ikea,Roadside,10,40.09,32.14,-19.85
+IS2,Islington - Holloway Road,Roadside,9,29.05,24.39,-16.03
+EN1,Enfield - Bush Hill Park,Suburban,12,17.82,15.11,-15.2
+EN7,Enfield - Prince of Wales School,Urban Background,11,16.79,14.52,-13.49
+EN4,Enfield - Derby Road,Roadside,10,28.31,25.12,-11.29
+HG1,Haringey - Haringey Town Hall,Roadside,9,28.09,24.92,-11.29
+CE2,Waterloo Place (The Crown Estate),Roadside,11,36.04,34.44,-4.42
