@@ -50,11 +50,12 @@ def extract_measurements(site_code, start, end):
 
 #extract_measurements("WM5", "2018-01-01", "2019-01-01") #test
 
-for year in range(2016, 2026):
-    start = f"{year}-01-01"
-    end = f"{year + 1}-01-01"
-    for site in site_codes:
-        extract_measurements(site, start, end)
+def fetch_historical_data():
+    for year in range(2016, 2026):
+        start = f"{year}-01-01"
+        end = f"{year + 1}-01-01"
+        for site in site_codes:
+            extract_measurements(site, start, end)
 
 #extract_measurements("WM0", "2019-01-01", "2020-01-01")
 
