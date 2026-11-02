@@ -13,7 +13,7 @@ observed_years = ["2016","2017","2018","2019","2020","2021","2022","2023","2024"
 start_date = "2016-10-24"
 end_date = "2026-10-24"
 
-# extract function will add join the endpoint to the base url and save the api response
+# Join the endpoint to the base URL and save the API response
 def extract(endpoint_name): 
     r = requests.get(url+endpoint[endpoint_name])
     r.raise_for_status()

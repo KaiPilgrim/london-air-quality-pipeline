@@ -40,8 +40,7 @@ st.set_page_config(page_title="London Air Quality Explorer", layout="wide")
 st.title("London Air Quality Explorer")
 st.write(
     "Explore nitrogen dioxide (NO₂) measurements across "
-    "11 London monitoring stations from 2016 to 2025."
-    ""
+    "11 London monitoring stations from 2016 onwards. "
     "Only years with at least 75% recording coverage are "
     "displayed. Some stations have fewer years of available data."
 )

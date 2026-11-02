@@ -10,7 +10,7 @@ from transform import get_year
 
 def update_data(start, end, db_path="data/london_air_quality.duckdb"):
 
-    #  Validatation for dates and database
+    #  Validation for dates and database
     if date.fromisoformat(start) >= date.fromisoformat(end):
         raise ValueError("End date must be after start date.")
 

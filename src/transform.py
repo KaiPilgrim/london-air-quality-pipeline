@@ -5,7 +5,7 @@ from datetime import datetime
 # Format functions
 # =========================
 
-# to_float() checks to see if value is equal to none or empty string. 
+# to_float() checks to see if value is equal to None or empty string. 
 # if so return none. Function then returns the value as float type.
 def to_float(value):
     if value is None or str(value).strip() == "":
@@ -14,7 +14,7 @@ def to_float(value):
     return float(value)
 
 # to_date() checks if date is empty or none, if so then return none
-# Otherwise convert to python date data type.
+# Otherwise convert to Python date data type.
 def to_date(value):
     if not value:
         return None

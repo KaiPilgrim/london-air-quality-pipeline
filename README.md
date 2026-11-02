@@ -113,7 +113,6 @@ Make sure Git and Python 3.13 are installed before starting.
 
 **Clone the repository and set up the environment**
 
-Make sure Git and Python are installed before starting.
 ```bash
 git clone https://github.com/KaiPilgrim/london-air-quality-pipeline.git
 cd london-air-quality-pipeline
@@ -199,7 +198,7 @@ update_data("2026-10-01", "2026-11-02", "data/test_update.duckdb")
 update_data("2026-10-01", "2026-11-02", "data/test_update.duckdb")
 ```
 
-The first run should insert any missing records for that period, the second should report 0 new records. To exit Python enter `exit()`. The end date is exclusive.
+The first run should insert any missing records for that period, the second should report 0 new records. To exit Python enter `exit()`.
 
 The test copy protects the main 2016–2025 database. When using a test database the script does not refresh the dashboard CSVs which remain based on the original historical database. Updating the main database instead uses the function's default `db_path` and also runs the CSV exporter which in turn changes the dashboard CSVs with the latest available data.
 
